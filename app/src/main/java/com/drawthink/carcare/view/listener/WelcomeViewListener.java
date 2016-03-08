@@ -10,6 +10,6 @@ package com.drawthink.carcare.view.listener;
  *
  * @version 1.0.0 <br/>
  */
-public interface WelcomeViewListener {
+public interface WelcomeViewListener extends BaseViewListener{
 
 }

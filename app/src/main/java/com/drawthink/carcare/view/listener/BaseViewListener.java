@@ -11,6 +11,6 @@ package com.drawthink.carcare.view.listener;
  * @version 1.0.0 <br/>
  */
 public interface BaseViewListener {
-    void loadSuccess();
-    void loadError();
+    void showLoading();
+    void hideLoading();
 }

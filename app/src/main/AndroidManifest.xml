@@ -15,7 +15,7 @@
         <activity android:name=".view.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="cat.ereza.customactivityoncrash.RESTART" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

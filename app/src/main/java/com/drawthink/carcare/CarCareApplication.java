@@ -1,12 +1,12 @@
 package com.drawthink.carcare;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.drawthink.carcare.config.GlideImageLoader;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
+import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import cn.finalteam.galleryfinal.CoreConfig;
 import cn.finalteam.galleryfinal.FunctionConfig;
 import cn.finalteam.galleryfinal.GalleryFinal;
@@ -15,7 +15,7 @@ import cn.finalteam.galleryfinal.ThemeConfig;
 
 /**
  * <b>类名称：</b> CarCareApplication <br/>
- * <b>类描述：</b> <br/>
+ * <b>类描述：</b> 汽车保养项目Application<br/>
  * <b>创建人：</b> Lincoln <br/>
  * <b>修改人：</b> Lincoln <br/>
  * <b>修改时间：</b> 2016年03月07日 上午10:34<br/>
@@ -32,8 +32,16 @@ public class CarCareApplication extends Application {
         super.onCreate();
         refWatcher = LeakCanary.install(this);
         configGalleryFinal();
+        configCustomerCrashHandler();
     }
 
+    private void configCustomerCrashHandler() {
+        CustomActivityOnCrash.install(this);
+    }
+
+    /**
+     * 配置GalleryFinal
+     */
     private void configGalleryFinal() {
         //设置主题
         //ThemeConfig.CYAN
@@ -59,6 +67,10 @@ public class CarCareApplication extends Application {
         GalleryFinal.init(coreConfig);
     }
 
+    /**
+     * 获取leakcanary watcher 对象
+     * @return leakcanary watcher 对象
+     */
     public static RefWatcher getRefWatcher() {
         return refWatcher;
     }
