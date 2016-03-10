@@ -2,23 +2,19 @@ package com.drawthink.carcare.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.drawthink.carcare.R;
+import com.drawthink.carcare.data.vo.User;
 import com.drawthink.carcare.presenter.WelcomePresenter;
 import com.drawthink.carcare.presenter.impl.WelcomePresenterImpl;
-import com.drawthink.carcare.utils.ToastUtil;
-import com.drawthink.carcare.view.listener.BaseViewListener;
 import com.drawthink.carcare.view.listener.WelcomeViewListener;
-
-import java.util.concurrent.TimeUnit;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import mehdi.sakout.dynamicbox.DynamicBox;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 
 /**
  * <b>类名称：</b> WelcomeActivity <br/>
@@ -43,10 +39,10 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeViewLis
         welcomeLayout = (LinearLayout) findViewById(R.id.welcomeLayout);
         final DynamicBox box = new DynamicBox(this,welcomeLayout);
         box.showLoadingLayout();
-//        String internetUrl = "http://img2.3lian.com/2014/f5/158/d/87.jpg";
-//        Glide.with(this)
-//                .load(internetUrl)
-//                .into(imageView);
+        String internetUrl = "http://img2.3lian.com/2014/f5/158/d/87.jpg";
+        Glide.with(this)
+                .load(internetUrl)
+                .into(imageView);
 //        RxView.clicks(imageView).subscribe(new Action1<Void>() {
 //            @Override
 //            public void call(Void aVoid) {
@@ -72,8 +68,19 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeViewLis
 //                ToastUtil.toast(WelcomeActivity.this, "Click Retry");
 //            }
 //        });
-        WelcomePresenter presenter = new WelcomePresenterImpl();
-        presenter.getUser(this);
+//        WelcomePresenter presenter = new WelcomePresenterImpl();
+//        presenter.getUser(this);
+
+        box.hideAll();
+        TextView id = (TextView) findViewById(R.id.id);
+        TextView name = (TextView) findViewById(R.id.name);
+        TextView birthday = (TextView) findViewById(R.id.birthday);
+
+        User user = new Select().from(User.class).querySingle();
+        id.setText(user.getId());
+        name.setText(user.getName());
+        birthday.setText(user.getBirthday());
+
     }
 
     @Override

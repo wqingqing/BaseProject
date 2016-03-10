@@ -1,15 +1,19 @@
 package com.drawthink.carcare.presenter.impl;
 
-import com.drawthink.carcare.data.http.carcare.vo.User;
+import android.os.Debug;
+
+import com.drawthink.carcare.data.vo.User;
 import com.drawthink.carcare.model.UserModel;
 import com.drawthink.carcare.model.impl.UserModelImpl;
 import com.drawthink.carcare.presenter.WelcomePresenter;
 import com.drawthink.carcare.utils.DebugLog;
 import com.drawthink.carcare.view.listener.WelcomeViewListener;
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import retrofit2.Response;
 import rx.Subscriber;
-import rx.functions.Action1;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * <b>类名称：</b> WelcomePresenterImpl <br/>
@@ -26,7 +30,10 @@ public class WelcomePresenterImpl implements WelcomePresenter {
     @Override
     public void getUser(WelcomeViewListener listener) {
         UserModel model = new UserModelImpl();
-        model.getUser().subscribe(new Subscriber<Response<User>>() {
+        model.getUser()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Subscriber<Response<User>>() {
             @Override
             public void onCompleted() {
 
@@ -35,11 +42,18 @@ public class WelcomePresenterImpl implements WelcomePresenter {
             @Override
             public void onError(Throwable e) {
                 DebugLog.wtf(e.getMessage());
+                DebugLog.wtf("current Thread name is --->"+Thread.currentThread().getName());
             }
 
             @Override
             public void onNext(Response<User> userResponse) {
+                DebugLog.wtf("save before"+new Select().from(User.class).queryList().size());
+
                 DebugLog.w(userResponse.body().getId());
+                DebugLog.wtf("current Thread name is --->"+Thread.currentThread().getName());
+                userResponse.body().save();
+
+                DebugLog.wtf("save after"+new Select().from(User.class).queryList().size());
             }
         });
     }

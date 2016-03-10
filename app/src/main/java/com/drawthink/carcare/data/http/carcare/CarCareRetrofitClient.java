@@ -1,11 +1,9 @@
 package com.drawthink.carcare.data.http.carcare;
 
 import com.drawthink.carcare.data.http.CustomerOkHttpClient;
-import com.google.gson.Gson;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.covert.fastjson.FastJsonConverterFactory;
 
 /**
@@ -32,7 +30,7 @@ public class CarCareRetrofitClient {
                 .baseUrl(BASE_URL)
                 .client(CustomerOkHttpClient.getClient())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                .addConverterFactory(FastJsonConverterFactory.create())
                 .build();
     }
 

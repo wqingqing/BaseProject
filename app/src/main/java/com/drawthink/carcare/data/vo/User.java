@@ -1,6 +1,12 @@
-package com.drawthink.carcare.data.http.carcare.vo;
+package com.drawthink.carcare.data.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.drawthink.carcare.data.databases.AppDatabase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ModelContainer;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 /**
  * <b>类名称：</b> User <br/>
@@ -12,10 +18,16 @@ import com.alibaba.fastjson.annotation.JSONField;
  *
  * @version 1.0.0 <br/>
  */
-public class User {
+@ModelContainer
+@Table(name="user",database = AppDatabase.class)
+public class User extends BaseModel{
     @JSONField(name = "_id")
+    @PrimaryKey
+    @Column
     private String id;
+    @Column
     private String name;
+    @Column
     private String birthday;
 
     public String getId() {

@@ -28,7 +28,7 @@ public class CustomerOkHttpClient {
 
         // add your other interceptors …
         // add logging as last interceptor
-        client =new OkHttpClient.Builder()
+        client = new OkHttpClient.Builder()
                 .addInterceptor(logging)
                 .build();
     }

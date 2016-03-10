@@ -3,6 +3,7 @@ package com.drawthink.carcare;
 import android.app.Application;
 
 import com.drawthink.carcare.config.GlideImageLoader;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -31,6 +32,7 @@ public class CarCareApplication extends Application {
     public void onCreate() {
         super.onCreate();
         refWatcher = LeakCanary.install(this);
+        FlowManager.init(this);
         configGalleryFinal();
         configCustomerCrashHandler();
     }

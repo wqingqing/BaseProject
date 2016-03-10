@@ -1,6 +1,6 @@
 package com.drawthink.carcare.model;
 
-import com.drawthink.carcare.data.http.carcare.vo.User;
+import com.drawthink.carcare.data.vo.User;
 
 import retrofit2.Response;
 import rx.Observable;

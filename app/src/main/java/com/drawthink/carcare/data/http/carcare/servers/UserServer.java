@@ -1,6 +1,6 @@
 package com.drawthink.carcare.data.http.carcare.servers;
 
-import com.drawthink.carcare.data.http.carcare.vo.User;
+import com.drawthink.carcare.data.vo.User;
 
 import retrofit2.Response;
 import retrofit2.http.GET;

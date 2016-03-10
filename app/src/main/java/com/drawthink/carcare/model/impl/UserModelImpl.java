@@ -2,7 +2,7 @@ package com.drawthink.carcare.model.impl;
 
 import com.drawthink.carcare.data.http.carcare.CarCareRetrofitClient;
 import com.drawthink.carcare.data.http.carcare.servers.UserServer;
-import com.drawthink.carcare.data.http.carcare.vo.User;
+import com.drawthink.carcare.data.vo.User;
 import com.drawthink.carcare.model.UserModel;
 
 import retrofit2.Response;
