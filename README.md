@@ -1,5 +1,5 @@
 # BaseProject 
-Rx：RxJava、rxBind、rx-preferences <br/>
+Rx：RxJava、rxBind、rx-preferences、frodo <br/>
 网络请求：retrofit2 <br/>
 图片加载工具：glide、glide-transformations<br/>
 图片选择工具：galleryfinal<br/>
