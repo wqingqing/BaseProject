@@ -1,11 +1,14 @@
 package com.drawthink.carcare;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.drawthink.carcare.config.GlideImageLoader;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+
+import java.io.File;
 
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import cn.finalteam.galleryfinal.CoreConfig;
@@ -27,9 +30,15 @@ import cn.finalteam.galleryfinal.ThemeConfig;
 public class CarCareApplication extends Application {
 
     private static RefWatcher refWatcher;
+    private static Context mContext;
+
+    public static Context getContext() {
+        return mContext;
+    }
 
     @Override
     public void onCreate() {
+        mContext = this;
         super.onCreate();
         refWatcher = LeakCanary.install(this);
         FlowManager.init(this);

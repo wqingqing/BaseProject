@@ -68,18 +68,18 @@ public class WelcomeActivity extends AppCompatActivity implements WelcomeViewLis
 //                ToastUtil.toast(WelcomeActivity.this, "Click Retry");
 //            }
 //        });
-//        WelcomePresenter presenter = new WelcomePresenterImpl();
-//        presenter.getUser(this);
+        WelcomePresenter presenter = new WelcomePresenterImpl();
+        presenter.getUser(this);
 
         box.hideAll();
-        TextView id = (TextView) findViewById(R.id.id);
-        TextView name = (TextView) findViewById(R.id.name);
-        TextView birthday = (TextView) findViewById(R.id.birthday);
-
-        User user = new Select().from(User.class).querySingle();
-        id.setText(user.getId());
-        name.setText(user.getName());
-        birthday.setText(user.getBirthday());
+//        TextView id = (TextView) findViewById(R.id.id);
+//        TextView name = (TextView) findViewById(R.id.name);
+//        TextView birthday = (TextView) findViewById(R.id.birthday);
+//
+//        User user = new Select().from(User.class).querySingle();
+//        id.setText(user.getId());
+//        name.setText(user.getName());
+//        birthday.setText(user.getBirthday());
 
     }
 
