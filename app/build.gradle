@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.fernandocejas.frodo'
 
 def dbflow_version = "3.0.0-beta5"
 
@@ -53,10 +54,4 @@ dependencies {
     compile "com.github.Raizlabs.DBFlow:dbflow-core:${dbflow_version}"
     compile "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
     compile "com.github.Raizlabs.DBFlow:dbflow-sqlcipher:${dbflow_version}"
-}
-
-sourceSets {
-    main {
-        java.srcDirs = ['src/main/java', 'src/main/java-gen']
-    }
 }
