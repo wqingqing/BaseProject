@@ -1,18 +1,19 @@
 package com.drawthink.carcare.presenter.impl;
 
-import android.os.Debug;
-
 import com.drawthink.carcare.data.vo.User;
 import com.drawthink.carcare.model.UserModel;
 import com.drawthink.carcare.model.impl.UserModelImpl;
 import com.drawthink.carcare.presenter.WelcomePresenter;
 import com.drawthink.carcare.utils.DebugLog;
 import com.drawthink.carcare.view.listener.WelcomeViewListener;
-import com.raizlabs.android.dbflow.sql.language.Select;
+import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 
 import retrofit2.Response;
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -25,15 +26,22 @@ import rx.schedulers.Schedulers;
  *
  * @version 1.0.0 <br/>
  */
+@RxLogSubscriber
 public class WelcomePresenterImpl implements WelcomePresenter {
 
     @Override
     public void getUser(WelcomeViewListener listener) {
+
         UserModel model = new UserModelImpl();
         model.getUser()
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Response<User>>() {
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(new Func1<Response<User>, Observable<User>>() {
+            @Override
+            public Observable<User> call(Response<User> userResponse) {
+                return Observable.just(userResponse.body());
+            }
+        }).subscribe(new Subscriber<User>() {
             @Override
             public void onCompleted() {
 
@@ -41,19 +49,12 @@ public class WelcomePresenterImpl implements WelcomePresenter {
 
             @Override
             public void onError(Throwable e) {
-                DebugLog.wtf(e.getMessage());
-                DebugLog.wtf("current Thread name is --->"+Thread.currentThread().getName());
+                DebugLog.wtf("net work error -->"+e.getMessage());
             }
 
             @Override
-            public void onNext(Response<User> userResponse) {
-                DebugLog.wtf("save before"+new Select().from(User.class).queryList().size());
-
-                DebugLog.w(userResponse.body().getId());
-                DebugLog.wtf("current Thread name is --->"+Thread.currentThread().getName());
-                userResponse.body().save();
-
-                DebugLog.wtf("save after"+new Select().from(User.class).queryList().size());
+            public void onNext(User user) {
+                DebugLog.wtf("net work success -->");
             }
         });
     }
